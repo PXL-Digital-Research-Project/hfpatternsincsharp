@@ -145,4 +145,50 @@ namespace WeatherOMatic_Explicit
 
         #endregion
     }
+
+    class Health : IDisplay, IObserver, IDisposable
+    {
+        private ISubject weatherData = null;
+        private WeatherMeasurements readings = new WeatherMeasurements();
+        
+
+        public Health(WeatherData weatherData)
+        {
+            this.weatherData = weatherData;
+            weatherData.Register(this);
+        }
+
+        public void Display()
+        {
+            if (readings.humidity>45 && readings.humidity < 55)
+            {
+                Console.WriteLine("all is well");
+            }
+            else if (readings.humidity < 45)
+            {
+                Console.WriteLine("all is dry");
+            }
+            else if (readings.humidity > 55)
+            {
+                Console.WriteLine("all is wet");
+            }
+        }
+
+        public void Dispose()
+        {
+            throw new NotImplementedException();
+        }
+        private void UnRegister()
+        {
+            if (this.weatherData != null)
+                this.weatherData.UnRegister(this);
+        }
+
+
+        public void Update(WeatherMeasurements newReadings)
+        {
+            this.readings = newReadings;
+            Display();
+        }
+    }
 }

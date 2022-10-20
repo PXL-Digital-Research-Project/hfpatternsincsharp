@@ -112,4 +112,46 @@ namespace WeatherOMatic.Net
 
         #endregion
     }
+    class Wealth : IDisplay, IDisposable
+    {
+        private WeatherData weatherData = null;
+        private WeatherMeasurements readings = new WeatherMeasurements();
+        
+
+        public Wealth(WeatherData newWeatherData)
+        {
+            this.weatherData = newWeatherData;
+            this.weatherData.ChangeEvent += new WeatherData.ChangeHandler(Update);
+        }
+        public void Update(object subject, WeatherMeasurements newReadings)
+        {
+            if (subject is WeatherData)
+            {
+                this.readings = newReadings;
+                Display();
+            }
+        }
+
+
+        public void Display()
+        {
+            if (readings.humidity > 45 && readings.humidity < 55)
+            {
+                Console.WriteLine("all is well");
+            }
+            else if (readings.humidity < 45)
+            {
+                Console.WriteLine("all is dry");
+            }
+            else if (readings.humidity > 55)
+            {
+                Console.WriteLine("all is wet");
+            }
+        }
+
+        public void Dispose()
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

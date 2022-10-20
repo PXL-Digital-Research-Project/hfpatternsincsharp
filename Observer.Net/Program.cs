@@ -14,6 +14,7 @@ namespace WeatherOMatic.Net
             CurrentConditions conditions = new CurrentConditions(weatherData);
             Statistics statistics = new Statistics(weatherData);
             Forecast forecast = new Forecast(weatherData);
+            Wealth wealth = new Wealth(weatherData);
 
             // create the readings
             WeatherMeasurements readings = new WeatherMeasurements();

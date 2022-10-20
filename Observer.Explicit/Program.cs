@@ -14,6 +14,7 @@ namespace WeatherOMatic_Explicit
             CurrentConditions conditions = new CurrentConditions(weatherData);
             Statistics statistics = new Statistics(weatherData);
             Forecast forecast = new Forecast(weatherData);
+            Health health = new Health(weatherData); 
 
             // create the readings
             WeatherMeasurements readings = new WeatherMeasurements();
